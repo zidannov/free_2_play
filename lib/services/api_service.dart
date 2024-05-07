@@ -9,13 +9,8 @@ class ApiService {
 
   Future<List<GameListModel>> fetchGames() async {
     try {
-      final response = await http.get(
-        Uri.parse(baseUrl),
-        headers: {
-          'x-rapidapi-key': apiKey,
-          'x-rapidapi-host': apiHost,
-        },
-      );
+      final response = await http.get(Uri.parse(baseUrl),
+          headers: {'x-rapidapi-key': apiKey, 'x-rapidapi-host': apiHost});
 
       if (response.statusCode == 200) {
         return gameListModelFromJson(response.body);
