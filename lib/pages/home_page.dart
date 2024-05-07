@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import '../models/games_model.dart';
+import 'game_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -40,6 +41,14 @@ class _HomePageState extends State<HomePage> {
                   leading: Image.network(game.thumbnail),
                   title: Text(game.title),
                   subtitle: Text(game.genre),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GameDetailPage(game: game),
+                      ),
+                    );
+                  },
                 );
               },
             );
