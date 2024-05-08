@@ -31,40 +31,80 @@ class GameDetailPage extends StatelessWidget {
                       snapshot.data!.thumbnail,
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width,
-                      height: 250,
+                      // height: 200,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             snapshot.data!.title,
                             style: const TextStyle(
-                              fontSize: 24,
+                              fontSize: 26,
                               fontWeight: FontWeight.bold,
                               color: AppColors.primaryTextColor,
                               // fontFamily:
                             ),
                           ),
-                          const SizedBox(height: 18),
+                          const SizedBox(height: 4),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                snapshot.data!.releaseDate,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: AppColors.accentTextColor,
-                                  // fontFamily:
+                              const Padding(
+                                padding: EdgeInsets.only(right: 8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Developer',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: AppColors.accentTextColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Publisher',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: AppColors.accentTextColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Released',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: AppColors.accentTextColor,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Text(
-                                snapshot.data!.developer,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: AppColors.accentTextColor,
-                                  // fontFamily:
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      snapshot.data!.developer,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        color: AppColors.primaryTextColor2,
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshot.data!.publisher,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        color: AppColors.primaryTextColor2,
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshot.data!.releaseDate,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        color: AppColors.primaryTextColor3,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -93,37 +133,28 @@ class GameDetailPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Text(
-                                      'Platform',
+                                      'PLATFORM',
                                       style: TextStyle(
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.primaryTextColor,
+                                        color: AppColors.accentTextColor,
                                       ),
                                     ),
-                                    const SizedBox(height: 12),
+                                    const SizedBox(height: 4),
                                     Container(
                                       padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                        vertical: 8,
+                                        horizontal: 16,
+                                        vertical: 4,
                                       ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
-                                        gradient: const LinearGradient(
-                                          colors: [
-                                            Colors.black,
-                                            Colors.black,
-                                            Colors.transparent,
-                                          ], // Warna gradient
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomRight,
-                                        ),
+                                        color: AppColors.backgroundColor3,
                                       ),
                                       child: Text(
                                         snapshot.data!.platform,
                                         style: const TextStyle(
-                                            color: Colors.white),
+                                            color: AppColors.primaryTextColor2),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -132,73 +163,54 @@ class GameDetailPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Text(
-                                      'Genre',
+                                      'GENRE',
                                       style: TextStyle(
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.primaryTextColor,
+                                        color: AppColors.accentTextColor,
                                       ),
                                     ),
-                                    const SizedBox(height: 12),
+                                    const SizedBox(height: 4),
                                     Container(
                                       padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                        vertical: 8,
+                                        horizontal: 16,
+                                        vertical: 4,
                                       ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
-                                        gradient: const LinearGradient(
-                                          colors: [
-                                            Colors.black,
-                                            Colors.black,
-                                            Colors.transparent,
-                                          ], // Warna gradient
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomRight,
-                                        ),
+                                        color: AppColors.backgroundColor3,
                                       ),
                                       child: Text(
                                         snapshot.data!.genre,
                                         style: const TextStyle(
-                                            color: Colors.white),
+                                          color: AppColors.primaryTextColor2,
+                                        ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 20),
                           Container(
                             width: double.infinity,
                             height: 0.2,
                             color: AppColors.backgroundColor2,
                           ),
                           const SizedBox(height: 16),
-                          const Text(
-                            'Description',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.primaryTextColor,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
                           Text(
                             snapshot.data!.description,
                             style: const TextStyle(
                               fontSize: 12,
-                              fontWeight: FontWeight.normal,
-                              color: AppColors.primaryTextColor2,
+                              color: AppColors.primaryTextColor3,
                             ),
                           ),
                           const SizedBox(height: 24),
                           const Text(
-                            'Similar Games',
+                            'SIMILAR GAMES',
                             style: TextStyle(
                               fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.primaryTextColor,
+                              color: AppColors.accentTextColor,
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -221,17 +233,17 @@ class GameDetailPage extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryTextColor,
+                        backgroundColor: AppColors.backgroundColor3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
                         fixedSize: const Size(290, 64),
                       ),
                       child: const Text(
-                        'Visit The Website',
+                        'VISIT THE WEBSITE',
                         style: TextStyle(
                           fontSize: 16,
-                          color: AppColors.accentColor,
+                          color: AppColors.primaryTextColor2,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -247,7 +259,7 @@ class GameDetailPage extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryTextColor,
+                        backgroundColor: AppColors.backgroundColor3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
@@ -255,7 +267,7 @@ class GameDetailPage extends StatelessWidget {
                       ),
                       child: const Icon(
                         Icons.arrow_back_ios,
-                        color: AppColors.accentColor,
+                        color: AppColors.primaryTextColor2,
                       ),
                     ),
                   ],

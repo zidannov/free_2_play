@@ -48,4 +48,24 @@ class GameService {
       throw Exception('Failed to load game detail: $e');
     }
   }
+
+  Future<List<GameListModel>> fetchGamesSortedByReleaseDate() async {
+    try {
+      final response = await http.get(
+          Uri.parse('${_apiService.baseUrl}/api/games?sort-by=release-date'),
+          headers: {
+            'x-rapidapi-key': _apiService.apiKey,
+            'x-rapidapi-host': _apiService.apiHost
+          });
+
+      if (response.statusCode == 200) {
+        List<GameListModel> games = gameListModelFromJson(response.body);
+        return games.take(10).toList();
+      } else {
+        throw Exception('Failed to load games: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to load games: $e');
+    }
+  }
 }

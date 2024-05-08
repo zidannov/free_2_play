@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:free_2_play/utils/app_colors.dart';
 import '../../models/game_list_model.dart';
 import '../../services/game_service.dart';
 import '../game_detail_page.dart';
@@ -52,15 +51,6 @@ class SimilarGamesWidget extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            game.title,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.normal,
-                                color: AppColors.primaryTextColor),
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),

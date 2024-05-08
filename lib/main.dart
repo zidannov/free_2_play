@@ -4,9 +4,7 @@ import 'pages/home_page.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
-  runApp(
-    const MainApp(),
-  );
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
