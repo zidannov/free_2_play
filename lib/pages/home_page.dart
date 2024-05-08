@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:free_2_play/services/game_service.dart';
+import 'package:free_2_play/utils/app_colors.dart';
 import '../services/api_service.dart';
-import '../models/games_model.dart';
+import '../models/game_list_model.dart';
 import 'game_detail_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,15 +18,21 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    games = ApiService().fetchGames();
+    games = GameService().fetchGames();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: const Text('FREE-2-PLAY'),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'FREE-2-PLAY',
+          style: TextStyle(color: AppColors.primaryTextColor),
+        ),
         centerTitle: true,
+        backgroundColor: Colors.black,
       ),
       body: FutureBuilder<List<GameListModel>>(
         future: games,
@@ -39,14 +47,20 @@ class _HomePageState extends State<HomePage> {
                 var game = snapshot.data![index];
                 return ListTile(
                   leading: Image.network(game.thumbnail),
-                  title: Text(game.title),
-                  subtitle: Text(game.genre),
+                  title: Text(
+                    game.title,
+                    style: TextStyle(color: AppColors.primaryTextColor),
+                  ),
+                  subtitle: Text(
+                    game.genre,
+                    style: TextStyle(color: AppColors.primaryTextColor2),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => GameDetailPage(
-                          game: game,
+                          gameId: game.id,
                           category: game.genre,
                         ),
                       ),

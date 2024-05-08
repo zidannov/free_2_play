@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/utils/app_colors.dart';
-import '../../models/games_model.dart';
+import '../../models/game_list_model.dart';
 import '../../services/api_service.dart';
 import '../../services/game_service.dart';
 import '../game_detail_page.dart';
@@ -36,7 +36,7 @@ class SimilarGamesWidget extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => GameDetailPage(
-                            game: game,
+                            gameId: game.id,
                             category: category,
                           ),
                         ),
