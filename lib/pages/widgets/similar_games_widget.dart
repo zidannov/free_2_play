@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/utils/app_colors.dart';
 import '../../models/game_list_model.dart';
-import '../../services/api_service.dart';
 import '../../services/game_service.dart';
 import '../game_detail_page.dart';
 
 class SimilarGamesWidget extends StatelessWidget {
-  Future<List<GameListModel>>? games;
   final String category;
-
-  SimilarGamesWidget({super.key, required this.category});
+  const SimilarGamesWidget({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
