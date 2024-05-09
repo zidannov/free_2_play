@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'pages/home_page.dart';
+import 'package:free_2_play/pages/splash/splash_page.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
@@ -12,9 +12,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(canvasColor: Colors.transparent),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -14,13 +14,45 @@ dependencies:
   url_launcher: ^6.2.6
   carousel_slider: ^4.2.1
   cached_network_image: ^3.3.1
+  crystal_navigation_bar: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  # flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
   assets:
-  - .env
+    - .env
+    - assets/logos/logo.png
+    - assets/logos/logo.gif
+  fonts:
+    - family: "Motiva Sans"
+      fonts:
+        - asset: assets/fonts/MotivaSansRegular.woff.ttf
+        - asset: assets/fonts/MotivaSansBold.woff.ttf
+          weight: 700
+    # - family: Arial
+    #   fonts:
+    #     - asset: assets/fonts/ARIAL.TTF
+
+# flutter_launcher_icons:
+#   android: "launcher_icon"
+#   ios: true
+#   image_path: "assets/logos/logo_icon.png"
+#   min_sdk_android: 21 # android min sdk min:16, default 21
+#   web:
+#     generate: true
+#     image_path: "assets/logos/logo_icon.png"
+#     background_color: "#FFFFFF"
+#     theme_color: "#FFFFFF"
+#   windows:
+#     generate: true
+#     image_path: "assets/logos/logo_icon.png"
+#     icon_size: 86 # min:48, max:256, default: 48
+
+#   macos:
+#     generate: true
+#     image_path: "assets/logos/logo_icon.png"

@@ -3,12 +3,12 @@ import 'package:free_2_play/pages/widgets/similar_games_widget.dart';
 import 'package:free_2_play/utils/app_colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../models/game_detail_model.dart';
-
 import '../services/game_service.dart';
 import 'home_page.dart';
+import 'widgets/custom_text_widget.dart';
 import 'widgets/game_detail_carousel.dart';
 
-class GameDetailPage extends StatelessWidget {
+class GameDetailPage extends StatefulWidget {
   final int gameId;
   final String category;
 
@@ -16,12 +16,32 @@ class GameDetailPage extends StatelessWidget {
       {super.key, required this.gameId, required this.category});
 
   @override
+  _GameDetailPageState createState() => _GameDetailPageState();
+}
+
+class _GameDetailPageState extends State<GameDetailPage> {
+  late ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<GameDetailModel>(
-      future: GameService().fetchGameDetailById(gameId),
+      future: GameService().fetchGameDetailById(widget.gameId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
+            final game = snapshot.data!;
             return Scaffold(
               backgroundColor: AppColors.backgroundColor,
               body: SingleChildScrollView(
@@ -29,24 +49,21 @@ class GameDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network(
-                      snapshot.data!.thumbnail,
+                      game.thumbnail,
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width,
-                      // height: 200,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            snapshot.data!.title,
-                            style: const TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primaryTextColor,
-                              // fontFamily:
-                            ),
+                          CustomTextWidget(
+                            text: game.title,
+                            fontSize: 26,
+                            fontFamily: 'Motiva Sans',
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryTextColor,
                           ),
                           const SizedBox(height: 4),
                           Row(
@@ -56,26 +73,20 @@ class GameDetailPage extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Developer',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: AppColors.accentTextColor,
-                                      ),
+                                    CustomTextWidget(
+                                      text: 'Developer',
+                                      fontSize: 13,
+                                      color: AppColors.accentTextColor,
                                     ),
-                                    Text(
-                                      'Publisher',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: AppColors.accentTextColor,
-                                      ),
+                                    CustomTextWidget(
+                                      text: 'Publisher',
+                                      fontSize: 13,
+                                      color: AppColors.accentTextColor,
                                     ),
-                                    Text(
-                                      'Released',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: AppColors.accentTextColor,
-                                      ),
+                                    CustomTextWidget(
+                                      text: 'Released',
+                                      fontSize: 13,
+                                      color: AppColors.accentTextColor,
                                     ),
                                   ],
                                 ),
@@ -84,26 +95,20 @@ class GameDetailPage extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      snapshot.data!.developer,
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                        color: AppColors.primaryTextColor2,
-                                      ),
+                                    CustomTextWidget(
+                                      text: game.developer,
+                                      fontSize: 13,
+                                      color: AppColors.primaryTextColor2,
                                     ),
-                                    Text(
-                                      snapshot.data!.publisher,
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                        color: AppColors.primaryTextColor2,
-                                      ),
+                                    CustomTextWidget(
+                                      text: game.publisher,
+                                      fontSize: 13,
+                                      color: AppColors.primaryTextColor2,
                                     ),
-                                    Text(
-                                      snapshot.data!.releaseDate,
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                        color: AppColors.primaryTextColor3,
-                                      ),
+                                    CustomTextWidget(
+                                      text: game.releaseDate,
+                                      fontSize: 13,
+                                      color: AppColors.primaryTextColor3,
                                     ),
                                   ],
                                 ),
@@ -118,7 +123,7 @@ class GameDetailPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           GameDetailCarousel(
-                            screenshots: snapshot.data!.screenshots,
+                            screenshots: game.screenshots,
                           ),
                           const SizedBox(height: 20),
                           Container(
@@ -133,12 +138,10 @@ class GameDetailPage extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      'PLATFORM',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: AppColors.accentTextColor,
-                                      ),
+                                    const CustomTextWidget(
+                                      text: 'PLATFORM',
+                                      fontSize: 16,
+                                      color: AppColors.accentTextColor,
                                     ),
                                     const SizedBox(height: 4),
                                     Container(
@@ -150,10 +153,9 @@ class GameDetailPage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(5),
                                         color: AppColors.backgroundColor3,
                                       ),
-                                      child: Text(
-                                        snapshot.data!.platform,
-                                        style: const TextStyle(
-                                            color: AppColors.primaryTextColor2),
+                                      child: CustomTextWidget(
+                                        text: game.platform,
+                                        color: AppColors.primaryTextColor2,
                                       ),
                                     ),
                                   ],
@@ -163,12 +165,10 @@ class GameDetailPage extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      'GENRE',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: AppColors.accentTextColor,
-                                      ),
+                                    const CustomTextWidget(
+                                      text: 'GENRE',
+                                      fontSize: 16,
+                                      color: AppColors.accentTextColor,
                                     ),
                                     const SizedBox(height: 4),
                                     Container(
@@ -180,11 +180,9 @@ class GameDetailPage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(5),
                                         color: AppColors.backgroundColor3,
                                       ),
-                                      child: Text(
-                                        snapshot.data!.genre,
-                                        style: const TextStyle(
-                                          color: AppColors.primaryTextColor2,
-                                        ),
+                                      child: CustomTextWidget(
+                                        text: game.genre,
+                                        color: AppColors.primaryTextColor2,
                                       ),
                                     ),
                                   ],
@@ -199,42 +197,39 @@ class GameDetailPage extends StatelessWidget {
                             color: AppColors.backgroundColor2,
                           ),
                           const SizedBox(height: 16),
-                          Text(
-                            snapshot.data!.description,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: AppColors.primaryTextColor3,
-                            ),
+                          CustomTextWidget(
+                            text: game.description,
+                            fontSize: 12,
+                            color: AppColors.primaryTextColor3,
                           ),
                           const SizedBox(height: 24),
-                          const Text(
-                            'SIMILAR GAMES',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.accentTextColor,
-                            ),
+                          const CustomTextWidget(
+                            text: 'SIMILAR GAMES',
+                            fontSize: 16,
+                            color: AppColors.accentTextColor,
                           ),
                           const SizedBox(height: 16),
                           SimilarGamesWidget(
-                            category: snapshot.data!.genre,
+                            category: game.genre,
                           ),
-                          const SizedBox(height: 34),
+                          const SizedBox(height: 64),
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
+              extendBody: true,
               bottomNavigationBar: BottomAppBar(
                 color: Colors.transparent,
                 elevation: 0,
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () {
                         launchUrlString(
-                          snapshot.data!.gameUrl,
+                          game.gameUrl,
                           mode: LaunchMode.inAppWebView,
                         );
                       },
@@ -243,15 +238,13 @@ class GameDetailPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        fixedSize: const Size(290, 64),
+                        fixedSize: const Size(270, 64),
                       ),
-                      child: const Text(
-                        'VISIT THE WEBSITE',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: AppColors.primaryTextColor2,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: const CustomTextWidget(
+                        text: 'VISIT THE WEBSITE',
+                        fontSize: 16,
+                        color: AppColors.primaryTextColor2,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -283,7 +276,10 @@ class GameDetailPage extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Scaffold(
               body: Center(
-                child: Text('Failed to load game details: ${snapshot.error}'),
+                child: CustomTextWidget(
+                  text: 'Failed to load game details: ${snapshot.error}',
+                  color: Colors.red,
+                ),
               ),
             );
           }

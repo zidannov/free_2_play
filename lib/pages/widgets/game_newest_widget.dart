@@ -3,6 +3,7 @@ import 'package:free_2_play/utils/app_colors.dart';
 import '../../models/game_list_model.dart';
 import '../../services/game_service.dart';
 import '../game_detail_page.dart';
+import 'custom_text_widget.dart';
 
 class GameNewestWidget extends StatelessWidget {
   const GameNewestWidget({super.key});
@@ -22,8 +23,8 @@ class GameNewestWidget extends StatelessWidget {
             if (snapshot.hasData) {
               return Container(
                 margin: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
+                  left: 8,
+                  right: 8,
                   top: 8,
                   bottom: 8,
                 ),
@@ -79,14 +80,10 @@ class GameNewestWidget extends StatelessWidget {
                                   top: 4,
                                   bottom: 12,
                                 ),
-                                child: Text(
-                                  game.title,
-                                  textAlign: TextAlign.left,
-                                  style: const TextStyle(
+                                child: CustomTextWidget(
+                                    text: game.title,
                                     color: AppColors.primaryTextColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),

@@ -19,23 +19,38 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.backgroundColor4,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          'FREE-2-PLAY',
-          style: TextStyle(color: AppColors.primaryTextColor),
-        ),
         // centerTitle: true,
+        title: Image.asset(
+          // color: AppColors.primaryTextColor3,
+          'assets/logos/logo.png',
+          width: 154,
+        ),
+
+        centerTitle: true,
         backgroundColor: AppColors.primaryColor,
         elevation: 0,
       ),
       body: const CustomScrollView(
         slivers: <Widget>[
-          GameNewestWidget(),
-          Expanded(
-            child: GameListWidget(),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(left: 8, top: 8),
+              child: Text(
+                'NEW RELEASES',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Motiva Sans',
+                  color: AppColors.primaryTextColor,
+                  // fontFamily:
+                ),
+              ),
+            ),
           ),
+          GameNewestWidget(),
+          GameListWidget(),
         ],
       ),
     );
