@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/pages/widgets/similar_games_widget.dart';
 import 'package:free_2_play/utils/app_colors.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../models/game_detail_model.dart';
 
 import '../services/game_service.dart';
@@ -231,7 +232,12 @@ class GameDetailPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        launchUrlString(
+                          snapshot.data!.gameUrl,
+                          mode: LaunchMode.inAppWebView,
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.backgroundColor3,
                         shape: RoundedRectangleBorder(
