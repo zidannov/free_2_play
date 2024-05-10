@@ -16,7 +16,11 @@ dependencies:
   cached_network_image: ^3.3.1
   persistent_bottom_nav_bar_v2: ^5.2.3
   get: ^4.6.6
-  google_generative_ai: ^0.3.3
+  flutter_gemini: ^2.0.3
+  image_picker: ^1.1.1
+  dash_chat_2: ^0.0.20
+  flutter_markdown: 0.6.23
+  flutter_inset_box_shadow: ^1.0.8
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +40,9 @@ flutter:
         - asset: assets/fonts/MotivaSansRegular.woff.ttf
         - asset: assets/fonts/MotivaSansBold.woff.ttf
           weight: 700
+    - family: Arial
+      fonts:
+        - asset: assets/fonts/ARIAL.ttf
     # - family: Arial
     #   fonts:
     #     - asset: assets/fonts/ARIAL.TTF

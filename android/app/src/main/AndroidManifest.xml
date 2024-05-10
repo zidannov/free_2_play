@@ -2,8 +2,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="Free2Play"
-        android:name="${applicationName}"
+        android:name="androidx.multidex.MultiDexApplication"
         android:icon="@mipmap/launcher_icon">
+        <!-- android:name="${applicationName}" -->
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:free_2_play/pages/home/home_page.dart';
+import 'home/home_page.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../utils/app_colors.dart';
@@ -15,18 +15,45 @@ class ViewPage extends StatefulWidget {
 }
 
 class _ViewPageState extends State<ViewPage> {
+  late PersistentTabController _controller;
+  bool showShadow = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PersistentTabController(initialIndex: 0);
+    _controller.addListener(() {
+      if (_controller.index == 2) {
+        // index 2 adalah ChatbotPage
+        setState(() {
+          showShadow = false;
+        });
+      } else {
+        setState(() {
+          showShadow = true;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor4,
-      appBar: const CustomAppBar(),
+      extendBody: false,
+      backgroundColor: Colors.black,
+      appBar: CustomAppBar(
+        showShadow: showShadow,
+      ),
       body: PersistentTabView(
+        controller: _controller,
         navBarHeight: 52,
         tabs: [
           PersistentTabConfig(
             screen: const HomePage(),
             item: ItemConfig(
-              icon: const Icon(Icons.home),
+              icon: const Icon(
+                Icons.home,
+              ),
               inactiveIcon: const Icon(
                 Icons.home,
                 color: Colors.white,
@@ -54,9 +81,16 @@ class _ViewPageState extends State<ViewPage> {
             ),
           ),
         ],
-        navBarBuilder: (navBarConfig) => Style8BottomNavBar(
-          navBarDecoration: const NavBarDecoration(
+        navBarBuilder: (navBarConfig) => Style10BottomNavBar(
+          navBarDecoration: NavBarDecoration(
             color: AppColors.primaryColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.7),
+                blurRadius: 8,
+                offset: const Offset(0, -1),
+              ),
+            ],
           ),
           navBarConfig: navBarConfig,
         ),

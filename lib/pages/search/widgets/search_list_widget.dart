@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:free_2_play/pages/widgets/custom_cached_image.dart';
+import 'package:free_2_play/pages/widgets/custom_loading_widget.dart';
 import 'package:get/get.dart';
 import 'package:free_2_play/pages/widgets/custom_text_widget.dart';
 import '../../../controllers/search_list_controller.dart';
@@ -26,7 +25,7 @@ class SearchListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       if (controller.isLoading.value) {
-        return const CircularProgressIndicator();
+        return const CustomLoadingWidget();
       } else {
         return GridView.builder(
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 48),
@@ -39,11 +38,12 @@ class SearchListWidget extends StatelessWidget {
           itemCount: controller.categories.length,
           itemBuilder: (context, index) {
             return buildCategoryItem(
-                context,
-                index,
-                controller.categories[index],
-                controller.thumbnailUrls[index],
-                colors[index % colors.length]);
+              context,
+              index,
+              controller.categories[index],
+              controller.thumbnailUrls[index],
+              colors[index % colors.length],
+            );
           },
         );
       }
@@ -71,6 +71,7 @@ class SearchListWidget extends StatelessWidget {
         child: Stack(
           children: [
             SizedBox(
+              width: double.infinity,
               height: double.infinity,
               child: CustomCachedImage(
                 gameUrl: thumbnailUrl,

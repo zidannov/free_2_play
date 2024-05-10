@@ -3,8 +3,6 @@ import 'package:free_2_play/pages/view_page.dart';
 import 'package:free_2_play/utils/app_colors.dart';
 import 'dart:async';
 
-import '../home/home_page.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
