@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../models/game_list_model.dart';
 import '../../../services/game_service.dart';
+import '../../widgets/custom_cached_image.dart';
 import 'game_detail_page.dart';
 
 class GameSimilarWidget extends StatelessWidget {
@@ -46,9 +47,8 @@ class GameSimilarWidget extends StatelessWidget {
                           Expanded(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                game.thumbnail,
-                                fit: BoxFit.cover,
+                              child: CustomCachedImage(
+                                gameUrl: game.thumbnail,
                               ),
                             ),
                           ),

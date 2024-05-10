@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:free_2_play/pages/widgets/custom_cached_image.dart';
 import 'package:get/get.dart';
 import 'package:free_2_play/pages/widgets/custom_text_widget.dart';
 import '../../../controllers/search_list_controller.dart';
@@ -65,14 +68,15 @@ class SearchListWidget extends StatelessWidget {
       },
       child: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(thumbnailUrl),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: Stack(
           children: [
+            SizedBox(
+              height: double.infinity,
+              child: CustomCachedImage(
+                gameUrl: thumbnailUrl,
+                fit: BoxFit.fitHeight,
+              ),
+            ),
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(

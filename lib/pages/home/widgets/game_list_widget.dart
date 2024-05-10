@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:free_2_play/pages/widgets/custom_cached_image.dart';
 import 'package:free_2_play/pages/widgets/custom_loading_widget.dart';
 import 'package:get/get.dart';
 import 'package:free_2_play/controllers/game_list_controller.dart';
@@ -55,10 +57,7 @@ class GameListWidget extends StatelessWidget {
                       color: Colors.blue,
                       width: 128,
                       height: 42,
-                      child: Image.network(
-                        game.thumbnail,
-                        fit: BoxFit.fitWidth,
-                      ),
+                      child: CustomCachedImage(gameUrl: game.thumbnail),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,

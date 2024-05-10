@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:free_2_play/pages/home/widgets/game_similar_widget.dart';
 import 'package:free_2_play/pages/view_page.dart';
 import 'package:free_2_play/pages/widgets/custom_app_bar.dart';
+import 'package:free_2_play/pages/widgets/custom_cached_image.dart';
 import 'package:free_2_play/pages/widgets/custom_loading_widget.dart';
 import 'package:free_2_play/utils/app_colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -47,10 +48,9 @@ class _GameDetailPageState extends State<GameDetailPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.network(
-                      game.thumbnail,
-                      fit: BoxFit.cover,
-                      width: MediaQuery.of(context).size.width,
+                    CustomCachedImage(
+                      gameUrl: game.thumbnail,
+                      widthQuery: true,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16),

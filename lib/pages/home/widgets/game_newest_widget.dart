@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controllers/game_newest_controller.dart';
@@ -56,8 +57,8 @@ class GameNewestWidget extends StatelessWidget {
                         children: [
                           Expanded(
                             child: ClipRRect(
-                              child: Image.network(
-                                game.thumbnail,
+                              child: CachedNetworkImage(
+                                imageUrl: game.thumbnail,
                                 fit: BoxFit.fitWidth,
                               ),
                             ),

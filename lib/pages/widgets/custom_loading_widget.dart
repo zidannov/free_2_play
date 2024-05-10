@@ -3,10 +3,12 @@ import 'package:free_2_play/utils/app_colors.dart';
 
 class CustomLoadingWidget extends StatelessWidget {
   final Color color;
+  final double strokeWidth;
 
   const CustomLoadingWidget({
     super.key,
     this.color = Colors.transparent,
+    this.strokeWidth = 2,
   });
 
   @override
@@ -16,7 +18,8 @@ class CustomLoadingWidget extends StatelessWidget {
       alignment: Alignment.center,
       width: double.infinity,
       height: 128,
-      child: const CircularProgressIndicator(
+      child: CircularProgressIndicator(
+        strokeWidth: strokeWidth,
         color: AppColors.primaryTextColor,
       ),
     );

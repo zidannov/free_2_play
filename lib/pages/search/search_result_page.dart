@@ -5,6 +5,7 @@ import '../../../controllers/search_result_controller.dart';
 import '../../main.dart';
 import '../../utils/app_colors.dart';
 import '../home/widgets/game_detail_page.dart';
+import '../widgets/custom_cached_image.dart';
 import '../widgets/custom_text_widget.dart';
 
 class SearchResultPage extends StatelessWidget {
@@ -27,9 +28,9 @@ class SearchResultPage extends StatelessWidget {
       backgroundColor: AppColors.backgroundColor4,
       body: Obx(() {
         if (controller.isLoading.value) {
-          return CustomLoadingWidget();
+          return const CustomLoadingWidget();
         } else if (controller.games.isEmpty) {
-          return Center(child: Text('No games found'));
+          return const Center(child: Text('No games found'));
         } else {
           return ListView.builder(
             itemCount: controller.games.length,
@@ -65,8 +66,8 @@ class SearchResultPage extends StatelessWidget {
                         color: Colors.blue,
                         width: 128,
                         height: 42,
-                        child: Image.network(
-                          game.thumbnail,
+                        child: CustomCachedImage(
+                          gameUrl: game.thumbnail,
                           fit: BoxFit.fitWidth,
                         ),
                       ),
