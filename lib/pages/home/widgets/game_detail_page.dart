@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/pages/home/widgets/game_similar_widget.dart';
 import 'package:free_2_play/pages/view_page.dart';
+import 'package:free_2_play/pages/widgets/custom_app_bar.dart';
 import 'package:free_2_play/pages/widgets/custom_loading_widget.dart';
 import 'package:free_2_play/utils/app_colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -41,6 +42,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
             final game = snapshot.data!;
             return Scaffold(
               backgroundColor: AppColors.backgroundColor,
+              appBar: const CustomAppBar(),
               body: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,8 +235,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.backgroundColor3,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: const BorderSide(),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         fixedSize: const Size(270, 64),
                       ),
@@ -258,9 +259,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.backgroundColor3,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          // NOTE!
-                          side: const BorderSide(),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         fixedSize: const Size(64, 64),
                       ),
@@ -276,16 +275,17 @@ class _GameDetailPageState extends State<GameDetailPage> {
           } else if (snapshot.hasError) {
             return Scaffold(
               body: Center(
-                child: CustomTextWidget(
-                  text: 'Failed to load game details: ${snapshot.error}',
-                  color: Colors.red,
-                ),
+                child: Text('Failed to load game details: ${snapshot.error}'),
               ),
             );
           }
         }
-        return const CustomLoadingWidget(
-          color: AppColors.primaryColor,
+        return const Scaffold(
+          backgroundColor: AppColors.backgroundColor,
+          appBar: CustomAppBar(),
+          body: CustomLoadingWidget(
+            color: AppColors.backgroundColor,
+          ),
         );
       },
     );

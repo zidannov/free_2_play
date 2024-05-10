@@ -5,6 +5,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import '../utils/app_colors.dart';
 import 'chatbot/chatbot_page.dart';
 import 'search/search_page.dart';
+import 'widgets/custom_app_bar.dart';
 
 class ViewPage extends StatefulWidget {
   const ViewPage({super.key});
@@ -18,18 +19,7 @@ class _ViewPageState extends State<ViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor4,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        // centerTitle: true,
-        title: Image.asset(
-          // color: AppColors.primaryTextColor3,
-          'assets/logos/logo.png',
-          width: 154,
-        ),
-        centerTitle: true,
-        backgroundColor: AppColors.primaryColor,
-        elevation: 0,
-      ),
+      appBar: const CustomAppBar(),
       body: PersistentTabView(
         navBarHeight: 52,
         tabs: [
