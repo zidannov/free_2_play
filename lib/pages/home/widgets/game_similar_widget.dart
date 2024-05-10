@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../models/game_list_model.dart';
-import '../../services/game_service.dart';
-import '../game_detail_page.dart';
+import '../../../models/game_list_model.dart';
+import '../../../services/game_service.dart';
+import 'game_detail_page.dart';
 
-class SimilarGamesWidget extends StatelessWidget {
+class GameSimilarWidget extends StatelessWidget {
   final String category;
-  const SimilarGamesWidget({super.key, required this.category});
+  const GameSimilarWidget({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {

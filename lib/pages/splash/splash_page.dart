@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:free_2_play/pages/view_page.dart';
 import 'package:free_2_play/utils/app_colors.dart';
 import 'dart:async';
 
-import '../home_page.dart';
+import '../home/home_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 5));
     // ignore: use_build_context_synchronously
     Navigator.of(context, rootNavigator: true)
-        .pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
+        .pushReplacement(MaterialPageRoute(builder: (_) => const ViewPage()));
   }
 
   @override

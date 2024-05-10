@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import '../../models/game_detail_model.dart';
+import '../../../models/game_detail_model.dart';
 
 class GameDetailCarousel extends StatelessWidget {
   final List<Screenshot> screenshots;

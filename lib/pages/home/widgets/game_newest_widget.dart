@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/utils/app_colors.dart';
-import '../../models/game_list_model.dart';
-import '../../services/game_service.dart';
-import '../game_detail_page.dart';
-import 'custom_text_widget.dart';
+import '../../../main.dart';
+import '../../../models/game_list_model.dart';
+import '../../../services/game_service.dart';
+import 'game_detail_page.dart';
+import '../../widgets/custom_text_widget.dart';
 
 class GameNewestWidget extends StatelessWidget {
-  const GameNewestWidget({super.key});
+  // final VoidCallback onItemTap;
+  const GameNewestWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +41,8 @@ class GameNewestWidget extends StatelessWidget {
                       var game = snapshot.data![index];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
+                          // onItemTap();
+                          navigatorKey.currentState?.push(
                             MaterialPageRoute(
                               builder: (context) => GameDetailPage(
                                 gameId: game.id,

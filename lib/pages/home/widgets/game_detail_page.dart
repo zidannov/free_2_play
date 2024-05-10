@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:free_2_play/pages/widgets/similar_games_widget.dart';
+import 'package:free_2_play/pages/home/widgets/game_similar_widget.dart';
+import 'package:free_2_play/pages/view_page.dart';
 import 'package:free_2_play/utils/app_colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../models/game_detail_model.dart';
-import '../services/game_service.dart';
-import 'home_page.dart';
-import 'widgets/custom_text_widget.dart';
-import 'widgets/game_detail_carousel.dart';
+import '../../../models/game_detail_model.dart';
+import '../../../services/game_service.dart';
+import '../home_page.dart';
+import '../../widgets/custom_text_widget.dart';
+import 'game_detail_carousel.dart';
 
 class GameDetailPage extends StatefulWidget {
   final int gameId;
@@ -43,6 +44,19 @@ class _GameDetailPageState extends State<GameDetailPage> {
           if (snapshot.hasData) {
             final game = snapshot.data!;
             return Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                // centerTitle: true,
+                title: Image.asset(
+                  // color: AppColors.primaryTextColor3,
+                  'assets/logos/logo.png',
+                  width: 154,
+                ),
+
+                centerTitle: true,
+                backgroundColor: AppColors.primaryColor,
+                elevation: 0,
+              ),
               backgroundColor: AppColors.backgroundColor,
               body: SingleChildScrollView(
                 child: Column(
@@ -209,7 +223,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                             color: AppColors.accentTextColor,
                           ),
                           const SizedBox(height: 16),
-                          SimilarGamesWidget(
+                          GameSimilarWidget(
                             category: game.genre,
                           ),
                           const SizedBox(height: 64),
@@ -236,7 +250,8 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.backgroundColor3,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(),
                         ),
                         fixedSize: const Size(270, 64),
                       ),
@@ -253,14 +268,16 @@ class _GameDetailPageState extends State<GameDetailPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomePage(),
+                            builder: (context) => const ViewPage(),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.backgroundColor3,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(10),
+                          // NOTE!
+                          side: const BorderSide(),
                         ),
                         fixedSize: const Size(64, 64),
                       ),

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/pages/widgets/custom_text_widget.dart';
 import 'package:free_2_play/services/game_service.dart';
-import '../../models/game_list_model.dart';
-import '../../utils/app_colors.dart';
-import '../game_detail_page.dart';
+import '../../../main.dart';
+import '../../../models/game_list_model.dart';
+import '../../../utils/app_colors.dart';
+import 'game_detail_page.dart';
 
 class GameListWidget extends StatelessWidget {
-  const GameListWidget({super.key});
+  // final VoidCallback onItemTap;
+  const GameListWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +41,8 @@ class GameListWidget extends StatelessWidget {
                 var game = snapshot.data![index];
                 return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
+                      // onItemTap();
+                      navigatorKey.currentState?.push(
                         MaterialPageRoute(
                           builder: (context) => GameDetailPage(
                             gameId: game.id,
@@ -51,7 +55,7 @@ class GameListWidget extends StatelessWidget {
                       height: 62,
                       width: double.infinity,
                       alignment: Alignment.centerLeft,
-                      color: const Color(0xFF203648),
+                      color: AppColors.backgroundColor5,
                       margin: const EdgeInsets.only(
                         bottom: 8,
                         right: 8,
@@ -80,11 +84,17 @@ class GameListWidget extends StatelessWidget {
                                   text: game.title,
                                   color: AppColors.primaryTextColor,
                                 ),
-                                const Icon(
-                                  Icons.window_sharp,
-                                  color: AppColors.accentTextColor,
-                                  size: 16,
-                                ),
+                                game.platform == "PC (Windows)"
+                                    ? const Icon(
+                                        Icons.window_sharp,
+                                        color: AppColors.accentTextColor,
+                                        size: 16,
+                                      )
+                                    : const Icon(
+                                        Icons.browser_updated_sharp,
+                                        color: AppColors.accentTextColor,
+                                        size: 16,
+                                      ),
                                 CustomTextWidget(
                                   text: game.genre,
                                   color: AppColors.accentTextColor,

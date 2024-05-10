@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:free_2_play/pages/widgets/game_newest_widget.dart';
-import '../utils/app_colors.dart';
+import 'package:free_2_play/pages/home/widgets/game_newest_widget.dart';
+import '../../utils/app_colors.dart';
 import 'widgets/game_list_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,22 +18,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor4,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        // centerTitle: true,
-        title: Image.asset(
-          // color: AppColors.primaryTextColor3,
-          'assets/logos/logo.png',
-          width: 154,
-        ),
-
-        centerTitle: true,
-        backgroundColor: AppColors.primaryColor,
-        elevation: 0,
-      ),
-      body: const CustomScrollView(
+    return Container(
+      color: AppColors.backgroundColor4,
+      child: const CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: Padding(
