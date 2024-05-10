@@ -12,7 +12,7 @@ class GameSimilarWidget extends StatelessWidget {
     GameService gameService = GameService();
 
     return FutureBuilder<List<GameListModel>>(
-      future: gameService.fetchSimilarGames(category),
+      future: gameService.fetchGameByCategory(category),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {

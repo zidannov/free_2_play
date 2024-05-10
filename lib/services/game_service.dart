@@ -24,7 +24,7 @@ class GameService {
     }
   }
 
-  Future<List<GameListModel>> fetchSimilarGames(String category) async {
+  Future<List<GameListModel>> fetchGameByCategory(String category) async {
     List<GameListModel> allGames = await fetchGames();
     return allGames.where((game) => game.genre == category).toList();
   }

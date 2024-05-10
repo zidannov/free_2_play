@@ -21,17 +21,13 @@ class GameDetailPage extends StatefulWidget {
 }
 
 class _GameDetailPageState extends State<GameDetailPage> {
-  late ScrollController _controller;
-
   @override
   void initState() {
     super.initState();
-    _controller = ScrollController();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -44,19 +40,6 @@ class _GameDetailPageState extends State<GameDetailPage> {
           if (snapshot.hasData) {
             final game = snapshot.data!;
             return Scaffold(
-              appBar: AppBar(
-                automaticallyImplyLeading: false,
-                // centerTitle: true,
-                title: Image.asset(
-                  // color: AppColors.primaryTextColor3,
-                  'assets/logos/logo.png',
-                  width: 154,
-                ),
-
-                centerTitle: true,
-                backgroundColor: AppColors.primaryColor,
-                elevation: 0,
-              ),
               backgroundColor: AppColors.backgroundColor,
               body: SingleChildScrollView(
                 child: Column(

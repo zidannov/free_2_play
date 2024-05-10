@@ -26,7 +26,6 @@ class _ViewPageState extends State<ViewPage> {
           'assets/logos/logo.png',
           width: 154,
         ),
-
         centerTitle: true,
         backgroundColor: AppColors.primaryColor,
         elevation: 0,
