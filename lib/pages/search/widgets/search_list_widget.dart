@@ -1,32 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:free_2_play/pages/widgets/custom_text_widget.dart';
-
+import '../../../controllers/search_list_controller.dart';
 import '../search_result_page.dart';
 
 class SearchListWidget extends StatelessWidget {
-  final categories = [
-    "Shooter",
-    "MMORPG",
-    "MOBA",
-    "Sports",
-    "Social",
-    "Strategy",
-    "Battle Royale",
-    "Card",
-    "Card Game",
-    "Fantasy",
-    "Fighting",
-    "MMO",
-    "MMOARPG",
-    "MMORPG",
-    "Racing",
-    "Action",
-    "Action Game",
-    "Action RPG",
-    "ARPG",
-  ];
+  final SearchListController controller = Get.put(SearchListController());
 
   final List<Color> colors = [
     const Color.fromARGB(184, 134, 1, 1), // Merah
@@ -42,69 +21,84 @@ class SearchListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 48),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    SearchResultPage(category: categories[index]),
-              ),
-            );
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return const CircularProgressIndicator();
+      } else {
+        return GridView.builder(
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 48),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: controller.categories.length,
+          itemBuilder: (context, index) {
+            return buildCategoryItem(
+                context,
+                index,
+                controller.categories[index],
+                controller.thumbnailUrls[index],
+                colors[index % colors.length]);
           },
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              image: const DecorationImage(
-                // image: AssetImage('assets/images/${categories[index]}.png'),
-                image: AssetImage('assets/images/action.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        colors[index % colors.length].withOpacity(1),
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      categories[index].toUpperCase(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+        );
+      }
+    });
+  }
+
+  Widget buildCategoryItem(
+    BuildContext context,
+    int index,
+    String category,
+    String thumbnailUrl,
+    Color backgroundColor,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SearchResultPage(category: category),
           ),
         );
       },
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(thumbnailUrl),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    backgroundColor.withOpacity(1),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: CustomTextWidget(
+                  text: category.toUpperCase(),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -68,4 +68,9 @@ class GameService {
       throw Exception('Failed to load games: $e');
     }
   }
+
+  Future<String> fetchFirstThumbnail(String category) async {
+    List<GameListModel> allGames = await fetchGameByCategory(category);
+    return allGames.first.thumbnail;
+  }
 }

@@ -20,9 +20,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.backgroundColor4,
-      child: const CustomScrollView(
+      child: CustomScrollView(
         slivers: <Widget>[
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.only(left: 8, top: 8),
               child: Text(

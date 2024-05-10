@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/pages/home/widgets/game_similar_widget.dart';
 import 'package:free_2_play/pages/view_page.dart';
+import 'package:free_2_play/pages/widgets/custom_loading_widget.dart';
 import 'package:free_2_play/utils/app_colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../models/game_detail_model.dart';
 import '../../../services/game_service.dart';
-import '../home_page.dart';
 import '../../widgets/custom_text_widget.dart';
 import 'game_detail_carousel.dart';
 
@@ -284,7 +284,9 @@ class _GameDetailPageState extends State<GameDetailPage> {
             );
           }
         }
-        return const CircularProgressIndicator();
+        return const CustomLoadingWidget(
+          color: AppColors.primaryColor,
+        );
       },
     );
   }
