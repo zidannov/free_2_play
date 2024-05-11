@@ -16,7 +16,7 @@ class ViewPage extends StatefulWidget {
 
 class _ViewPageState extends State<ViewPage> {
   late PersistentTabController _controller;
-  bool showShadow = true;
+  bool changeShadow = true;
 
   @override
   void initState() {
@@ -26,11 +26,11 @@ class _ViewPageState extends State<ViewPage> {
       if (_controller.index == 2) {
         // index 2 adalah ChatbotPage
         setState(() {
-          showShadow = false;
+          changeShadow = true;
         });
       } else {
         setState(() {
-          showShadow = true;
+          changeShadow = false;
         });
       }
     });
@@ -42,7 +42,7 @@ class _ViewPageState extends State<ViewPage> {
       extendBody: false,
       backgroundColor: Colors.black,
       appBar: CustomAppBar(
-        showShadow: showShadow,
+        changeShadow: changeShadow,
       ),
       body: PersistentTabView(
         controller: _controller,

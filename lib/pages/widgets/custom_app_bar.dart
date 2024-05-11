@@ -3,23 +3,30 @@ import '../../utils/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double barHeight = 56.0;
-  final bool showShadow;
+  final bool changeShadow;
 
-  const CustomAppBar({super.key, this.showShadow = true});
+  const CustomAppBar({super.key, this.changeShadow = true});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: showShadow
+        boxShadow: changeShadow
             ? [
+                BoxShadow(
+                  color: AppColors.primaryTextColor2.withOpacity(0.4),
+                  blurRadius: 10,
+                  spreadRadius: 0,
+                  offset: const Offset(0, -2),
+                ),
+              ]
+            : [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.7),
                   blurRadius: 8,
                   offset: const Offset(0, 1),
                 ),
-              ]
-            : [],
+              ],
       ),
       child: AppBar(
         surfaceTintColor: AppColors.primaryColor,

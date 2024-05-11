@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,6 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:free_2_play/pages/chatbot/widgets/chat_ui.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
-
-import '../../utils/app_colors.dart';
 
 class ChatbotPage extends StatefulWidget {
   const ChatbotPage({super.key});
@@ -32,43 +29,31 @@ class _ChatbotPageState extends State<ChatbotPage> {
   String fullResponse = "";
 
   @override
+  void initState() {
+    super.initState();
+    _sendWelcomeMessage();
+  }
+
+  void _sendWelcomeMessage() {
+    ChatMessage welcomeMessage = ChatMessage(
+      user: geminiUser,
+      text:
+          "Selamat datang! Saya adalah asisten virtual Anda. Silakan ajukan pertanyaan mengenai game.",
+      createdAt: DateTime.now(),
+    );
+    setState(
+      () {
+        messages.add(welcomeMessage);
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: const Color(0xFF202227),
       body: Stack(
         children: [
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: Container(
-              width: double.infinity,
-              height: 116,
-              // color: AppColors.accentColor,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    AppColors.accentColor,
-                    AppColors.backgroundColor2,
-                  ],
-                  stops: [
-                    0.0,
-                    1.0,
-                  ],
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.primaryTextColor2.withOpacity(0.4),
-                    blurRadius: 10,
-                    spreadRadius: 0,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-            ),
-          ),
           ChatUI(
             currentUser: currentUser,
             messages: messages,
@@ -82,23 +67,17 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 
-  bool _isRelevantResponse(String response) {
-    List<String> keywords = [
-      "permainan",
-      "game",
-      "pc",
-      "browser",
-      "gameplay",
-    ];
-    return keywords.any(
-        (keyword) => response.toLowerCase().contains(keyword.toLowerCase()));
+  bool isKeywordPresent(String response, String keyword) {
+    // Membuat regex untuk mencari kata kunci sebagai kata terpisah
+    RegExp exp =
+        RegExp(r'\b' + RegExp.escape(keyword) + r'\b', caseSensitive: false);
+    return exp.hasMatch(response);
   }
 
   void _sendMessage(ChatMessage chatMessage) {
     setState(() {
       messages = [chatMessage, ...messages];
-      typingUsers
-          .add(geminiUser); // Menambah AI ke typingUsers saat memulai proses
+      typingUsers.add(geminiUser);
       fullResponse = "";
     });
 
@@ -106,7 +85,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
 
     try {
       String question =
-          'Jawab dalam Bahasa Indonesia, dan jangan menjawab pertanyaan apabila pertanyaan tidak mengandung kata Game ataupun Permainan, pertanyaannya: ${chatMessage.text}.';
+          'JANGAN menjawab pertanyaan apabila pertanyaan bukan seputar game online, pertanyaannya: ${chatMessage.text}.';
       List<Uint8List>? images;
       if (chatMessage.medias?.isNotEmpty ?? false) {
         images = [
@@ -118,14 +97,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
                 "", (previous, current) => "$previous ${current.text}") ??
             "";
       }, onDone: () {
-        completer.complete(); // fullResponse telah selesai
-      }, onError: (error) {
-        print("Error: $error");
-        completer.completeError(error);
-      });
-
-      completer.future.then((_) {
-        if (_isRelevantResponse(fullResponse)) {
+        if (isKeywordPresent(fullResponse, "game")) {
           ChatMessage message = ChatMessage(
             user: geminiUser,
             createdAt: DateTime.now(),
@@ -133,20 +105,22 @@ class _ChatbotPageState extends State<ChatbotPage> {
           );
           setState(() {
             messages = [message, ...messages];
-            typingUsers.remove(geminiUser);
           });
         } else {
           ChatMessage apologyMessage = ChatMessage(
             user: geminiUser,
             createdAt: DateTime.now(),
             text:
-                "Maaf, saya tidak memiliki informasi mengenai topik di luar aplikasi ini.",
+                "Maaf, saya tidak memiliki informasi mengenai topik di luar 'game'.",
           );
           setState(() {
             messages = [apologyMessage, ...messages];
-            typingUsers.remove(geminiUser);
           });
         }
+        typingUsers.remove(geminiUser);
+      }, onError: (error) {
+        print("Error: $error");
+        completer.completeError(error);
       });
     } catch (e) {
       print(e);
@@ -174,7 +148,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
-        text: "Describe this picture?",
+        text: "Jelaskan gambar diatas?",
         medias: [
           ChatMedia(
             url: file.path,

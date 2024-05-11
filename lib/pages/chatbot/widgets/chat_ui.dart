@@ -25,6 +25,7 @@ class ChatUI extends StatelessWidget {
     BuildContext context,
     VoidCallback onPressed,
     IconData icon,
+    bool isGlow,
   ) {
     return SizedBox(
       width: 48,
@@ -32,7 +33,7 @@ class ChatUI extends StatelessWidget {
         aspectRatio: 1 / 1,
         child: DecoratedBox(
           decoration: const BoxDecoration(
-            color: AppColors.primaryColor,
+            color: Color(0xFF2C3036),
             border: Border(
               top: BorderSide(
                 color: Colors.black,
@@ -48,12 +49,40 @@ class ChatUI extends StatelessWidget {
               ),
             ),
           ),
-          child: IconButton(
-            icon: Icon(
-              icon,
-              color: AppColors.accentTextColor,
-            ),
-            onPressed: onPressed,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              IconButton(
+                icon: Icon(
+                  icon,
+                  color: const Color(0xFF898989),
+                ),
+                onPressed: onPressed,
+              ),
+              isGlow
+                  ? Positioned(
+                      top: 5, // Atur posisi vertikal
+                      right: 5, // Atur posisi horizontal
+                      child: Container(
+                        width: 7, // Diameter titik kuning
+                        height: 7,
+                        decoration: BoxDecoration(
+                          color: Colors.yellow, // Warna titik
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  Colors.yellow.withOpacity(0.5), // Warna glow
+                              spreadRadius: 2,
+                              blurRadius: 10, // Radius glow
+                              offset: const Offset(0, 0), // Posisi glow
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+            ],
           ),
         ),
       ),
@@ -70,39 +99,72 @@ class ChatUI extends StatelessWidget {
     );
   }
 
+  BoxDecoration messageDecoration(ChatMessage message,
+      ChatMessage? previousMessage, ChatMessage? nextMessage) {
+    return BoxDecoration(
+      color: message.user.id == currentUser.id
+          ? Colors.blue
+          : AppColors.primaryTextColor3,
+      borderRadius: BorderRadius.circular(4),
+    );
+  }
+
+  Widget messageText(ChatMessage message, ChatMessage? previousMessage,
+      ChatMessage? nextMessage) {
+    return MarkdownBody(
+      data: message.text,
+      styleSheet: MarkdownStyleSheet(
+        p: TextStyle(
+          color: message.user.id == currentUser.id
+              ? AppColors.primaryColor
+              : AppColors.primaryColor,
+          fontFamily: 'Arial',
+        ),
+      ),
+    );
+  }
+
+  Widget buildTypingIndicator(ChatUser user) {
+    if (typingUsers.isNotEmpty) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              const SizedBox(width: 8),
+              const TypingIndicator(
+                flashingCircleBrightColor: AppColors.primaryTextColor2,
+                flashingCircleDarkColor: AppColors.accentColor,
+              ),
+              const SizedBox(width: 3),
+              Text(
+                '${user.firstName} is typing',
+                style: const TextStyle(
+                  color: AppColors.primaryTextColor2,
+                ),
+              )
+            ],
+          ),
+        ],
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DashChat(
+      quickReplyOptions: const QuickReplyOptions(),
       messageOptions: MessageOptions(
         containerColor: AppColors.backgroundColor4,
         textColor: AppColors.primaryTextColor,
-        messageDecorationBuilder: (
-          ChatMessage message,
-          ChatMessage? previousMessage,
-          ChatMessage? nextMessage,
-        ) {
-          return BoxDecoration(
-            color: message.user.id == currentUser.id
-                ? Colors.blue
-                : AppColors.primaryTextColor3,
-            borderRadius: BorderRadius.circular(4),
-          );
-        },
-        messageTextBuilder: (ChatMessage message, ChatMessage? previousMessage,
-            ChatMessage? nextMessage) {
-          return MarkdownBody(
-            data: message.text,
-            styleSheet:
-                MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-              p: TextStyle(
-                color: message.user.id == currentUser.id
-                    ? AppColors.primaryColor
-                    : AppColors.primaryColor,
-                fontFamily: 'Arial',
-              ),
-            ),
-          );
-        },
+        messageDecorationBuilder: messageDecoration,
+        messageTextBuilder: messageText,
+      ),
+      messageListOptions: MessageListOptions(
+        typingBuilder: buildTypingIndicator,
       ),
       inputOptions: InputOptions(
         inputDecoration: InputDecoration(
@@ -111,7 +173,7 @@ class ChatUI extends StatelessWidget {
           enabled: true,
           filled: true,
           iconColor: AppColors.primaryTextColor3,
-          fillColor: AppColors.primaryColor,
+          fillColor: AppColors.backgroundColor6,
           border: customOutlineInputBorder(),
           enabledBorder: customOutlineInputBorder(),
           disabledBorder: customOutlineInputBorder(),
@@ -129,11 +191,23 @@ class ChatUI extends StatelessWidget {
           color: Colors.blue,
         ),
         sendButtonBuilder: (Function() onSend) =>
-            _buildIconButton(context, onSend, Icons.send),
+            _buildIconButton(context, onSend, Icons.send, false),
         trailing: [
-          _buildIconButton(context, onSendMedia, Icons.image),
+          _buildIconButton(context, onSendMedia, Icons.image, true),
         ],
         onTextChange: onTextChanged,
+        inputToolbarStyle: BoxDecoration(
+          color: AppColors.accentColor,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primaryTextColor2.withOpacity(0.4),
+              blurRadius: 10,
+              spreadRadius: 0,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        inputToolbarMargin: const EdgeInsets.only(top: 16),
       ),
       currentUser: currentUser,
       onSend: onSend,
