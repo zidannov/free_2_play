@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../../../models/game_detail_model.dart';
@@ -21,10 +22,13 @@ class GameDetailCarousel extends StatelessWidget {
             builder: (BuildContext context) {
               return Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Image.network(
-                  screenshot.image,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: CachedNetworkImage(
+                  imageUrl: screenshot.image,
                   fit: BoxFit.cover,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               );
             },
