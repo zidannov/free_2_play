@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:free_2_play/pages/chatbot/widgets/chat_ui.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:async';
 
 import '../../utils/app_colors.dart';
 
@@ -28,6 +29,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     firstName: "Gemini",
     profileImage: "assets/logos/gemini_logo.png",
   );
+  String fullResponse = "";
 
   @override
   Widget build(BuildContext context) {
@@ -80,53 +82,69 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 
+  bool _isRelevantResponse(String response) {
+    List<String> keywords = [
+      "permainan",
+      "game",
+      "pc",
+      "browser",
+      "gameplay",
+    ];
+    return keywords.any(
+        (keyword) => response.toLowerCase().contains(keyword.toLowerCase()));
+  }
+
   void _sendMessage(ChatMessage chatMessage) {
     setState(() {
       messages = [chatMessage, ...messages];
       typingUsers
-          .add(geminiUser); // tambah AI ke typingUsers saat memulai proses
+          .add(geminiUser); // Menambah AI ke typingUsers saat memulai proses
+      fullResponse = "";
     });
+
+    Completer<void> completer = Completer<void>();
+
     try {
-      String question = chatMessage.text;
+      String question =
+          'Jawab dalam Bahasa Indonesia, dan jangan menjawab pertanyaan apabila pertanyaan tidak mengandung kata Game ataupun Permainan, pertanyaannya: ${chatMessage.text}.';
       List<Uint8List>? images;
       if (chatMessage.medias?.isNotEmpty ?? false) {
         images = [
           File(chatMessage.medias!.first.url).readAsBytesSync(),
         ];
       }
-      gemini
-          .streamGenerateContent(
-        question,
-        images: images,
-      )
-          .listen((event) {
-        ChatMessage? lastMessage = messages.firstOrNull;
-        if (lastMessage != null && lastMessage.user == geminiUser) {
-          lastMessage = messages.removeAt(0);
-          String response = event.content?.parts?.fold(
-                  "", (previous, current) => "$previous ${current.text}") ??
-              "";
-          lastMessage.text += response;
-          setState(
-            () {
-              messages = [lastMessage!, ...messages];
-              typingUsers.remove(
-                  geminiUser); // hapus AI dari typingUsers setelah selesai
-            },
-          );
-        } else {
-          String response = event.content?.parts?.fold(
-                  "", (previous, current) => "$previous ${current.text}") ??
-              "";
+      gemini.streamGenerateContent(question, images: images).listen((event) {
+        fullResponse += event.content?.parts?.fold(
+                "", (previous, current) => "$previous ${current.text}") ??
+            "";
+      }, onDone: () {
+        completer.complete(); // fullResponse telah selesai
+      }, onError: (error) {
+        print("Error: $error");
+        completer.completeError(error);
+      });
+
+      completer.future.then((_) {
+        if (_isRelevantResponse(fullResponse)) {
           ChatMessage message = ChatMessage(
             user: geminiUser,
             createdAt: DateTime.now(),
-            text: response,
+            text: fullResponse,
           );
           setState(() {
             messages = [message, ...messages];
-            typingUsers.remove(
-                geminiUser); // hapus AI dari typingUsers setelah selesai
+            typingUsers.remove(geminiUser);
+          });
+        } else {
+          ChatMessage apologyMessage = ChatMessage(
+            user: geminiUser,
+            createdAt: DateTime.now(),
+            text:
+                "Maaf, saya tidak memiliki informasi mengenai topik di luar aplikasi ini.",
+          );
+          setState(() {
+            messages = [apologyMessage, ...messages];
+            typingUsers.remove(geminiUser);
           });
         }
       });
