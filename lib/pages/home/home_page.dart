@@ -3,18 +3,8 @@ import 'package:free_2_play/pages/home/widgets/game_newest_widget.dart';
 import '../../utils/app_colors.dart';
 import 'widgets/game_list_widget.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +21,6 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16,
                   fontFamily: 'Motiva Sans',
                   color: AppColors.primaryTextColor,
-                  // fontFamily:
                 ),
               ),
             ),
