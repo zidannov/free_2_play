@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../../controllers/home_controller.dart';
 import '../../../main.dart';
 import '../../../models/game_list_model.dart';
 import 'game_detail_page.dart';
