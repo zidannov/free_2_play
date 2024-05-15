@@ -2,20 +2,22 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dash_chat_2/dash_chat_2.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:free_2_play/pages/chatbot/widgets/chat_ui.dart';
+import 'package:free_2_play/constant/asset_constant.dart';
+import 'package:free_2_play/pages/gemini/widgets/chat_ui_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 
-class ChatbotPage extends StatefulWidget {
-  const ChatbotPage({super.key});
+class GeminiPage extends StatefulWidget {
+  const GeminiPage({super.key});
 
   @override
-  State<ChatbotPage> createState() => _ChatbotPageState();
+  State<GeminiPage> createState() => _GeminiPageState();
 }
 
-class _ChatbotPageState extends State<ChatbotPage> {
+class _GeminiPageState extends State<GeminiPage> {
   final Gemini gemini = Gemini.instance;
 
   List<ChatMessage> messages = [];
@@ -24,7 +26,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
   ChatUser geminiUser = ChatUser(
     id: "1",
     firstName: "Gemini",
-    profileImage: "assets/logos/gemini_logo.png",
+    profileImage: ImageConstant.geminiLogo,
   );
   String fullResponse = "";
 
@@ -67,13 +69,6 @@ class _ChatbotPageState extends State<ChatbotPage> {
     );
   }
 
-  bool isKeywordPresent(String response, String keyword) {
-    // Membuat regex untuk mencari kata kunci sebagai kata terpisah
-    RegExp exp =
-        RegExp(r'\b' + RegExp.escape(keyword) + r'\b', caseSensitive: false);
-    return exp.hasMatch(response);
-  }
-
   void _sendMessage(ChatMessage chatMessage) {
     setState(() {
       messages = [chatMessage, ...messages];
@@ -81,11 +76,18 @@ class _ChatbotPageState extends State<ChatbotPage> {
       fullResponse = "";
     });
 
+    bool isKeywordPresent(String response, String keyword) {
+      // regex untuk mencari kata kunci sebagai kata terpisah
+      RegExp exp =
+          RegExp(r'\b' + RegExp.escape(keyword) + r'\b', caseSensitive: false);
+      return exp.hasMatch(response);
+    }
+
     Completer<void> completer = Completer<void>();
 
     try {
-      String question =
-          'JANGAN menjawab pertanyaan apabila pertanyaan bukan seputar game online, pertanyaannya: ${chatMessage.text}.';
+      String questionPrefix = "pertanyaannya: ";
+      String question = questionPrefix + chatMessage.text;
       List<Uint8List>? images;
       if (chatMessage.medias?.isNotEmpty ?? false) {
         images = [
@@ -119,11 +121,10 @@ class _ChatbotPageState extends State<ChatbotPage> {
         }
         typingUsers.remove(geminiUser);
       }, onError: (error) {
-        print("Error: $error");
         completer.completeError(error);
       });
     } catch (e) {
-      print(e);
+      //
     }
   }
 
@@ -148,7 +149,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
-        text: "Jelaskan gambar diatas?",
+        text: "Jelaskan gambar dibawah",
         medias: [
           ChatMedia(
             url: file.path,

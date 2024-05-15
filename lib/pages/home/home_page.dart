@@ -1,34 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/pages/home/widgets/game_newest_widget.dart';
-import '../../utils/app_colors.dart';
+import 'package:free_2_play/pages/widgets/global_loading_widget.dart';
+import 'package:free_2_play/pages/widgets/global_text_widget.dart';
+import '../../constant/color_constant.dart';
 import 'widgets/game_list_widget.dart';
+import 'package:get/get.dart';
+import '../../controllers/home_controller.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.backgroundColor4,
-      child: CustomScrollView(
-        slivers: <Widget>[
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.only(left: 8, top: 8),
-              child: Text(
-                'NEW RELEASES',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Motiva Sans',
-                  color: AppColors.primaryTextColor,
-                ),
+    final HomeController controller = Get.put(HomeController());
+
+    return Scaffold(
+      backgroundColor: ColorConstant.backgroundColor4,
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const GlobalLoadingWidget();
+        } else {
+          return CustomScrollView(
+            slivers: <Widget>[
+              const SliverToBoxAdapter(
+                child: Padding(
+                    padding: EdgeInsets.only(left: 8, top: 8),
+                    child: GlobalTextWidget(
+                      text: 'NEW RELEASES',
+                      fontSize: 16,
+                    )),
               ),
-            ),
-          ),
-          GameNewestWidget(),
-          GameListWidget(),
-        ],
-      ),
+              GameNewestWidget(games: controller.newestGames),
+              GameListWidget(games: controller.allGames),
+            ],
+          );
+        }
+      }),
     );
   }
 }

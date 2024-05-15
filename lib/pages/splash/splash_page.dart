@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:free_2_play/pages/view_page.dart';
-import 'package:free_2_play/utils/app_colors.dart';
+import 'package:free_2_play/pages/main_navigation_page.dart';
+import 'package:free_2_play/constant/color_constant.dart';
 import 'dart:async';
+
+import '../../constant/asset_constant.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,21 +20,20 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 5));
-    // ignore: use_build_context_synchronously
-    Navigator.of(context, rootNavigator: true)
-        .pushReplacement(MaterialPageRoute(builder: (_) => const ViewPage()));
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.of(context, rootNavigator: true).pushReplacement(
+        MaterialPageRoute(builder: (_) => const MainNavigationPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: ColorConstant.primaryColor,
       body: Center(
         child: Image.asset(
-          'assets/logos/logo.gif',
-          height: 425,
-          // color: AppColors.primaryTextColor2,
+          ImageConstant.appLogoSplash,
+          height: 225,
+          // color: ColorConstant.primaryTextColor2,
         ),
       ),
     );

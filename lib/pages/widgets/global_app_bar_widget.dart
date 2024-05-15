@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../utils/app_colors.dart';
+import '../../constant/color_constant.dart';
+import '../../constant/asset_constant.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double barHeight = 56.0;
   final bool changeShadow;
 
-  const CustomAppBar({super.key, this.changeShadow = true});
+  const GlobalAppBar({super.key, this.changeShadow = false});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         boxShadow: changeShadow
             ? [
                 BoxShadow(
-                  color: AppColors.primaryTextColor2.withOpacity(0.4),
+                  color: ColorConstant.primaryTextColor2.withOpacity(0.4),
                   blurRadius: 10,
                   spreadRadius: 0,
                   offset: const Offset(0, -2),
@@ -29,14 +30,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
       ),
       child: AppBar(
-        surfaceTintColor: AppColors.primaryColor,
+        surfaceTintColor: ColorConstant.primaryColor,
         automaticallyImplyLeading: false,
         title: Image.asset(
-          'assets/logos/logo.png',
+          ImageConstant.appLogo,
           width: 154,
         ),
         centerTitle: true,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: ColorConstant.primaryColor,
       ),
     );
   }

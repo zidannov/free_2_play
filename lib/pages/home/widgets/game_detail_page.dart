@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/pages/home/widgets/game_similar_widget.dart';
-import 'package:free_2_play/pages/view_page.dart';
-import 'package:free_2_play/pages/widgets/custom_app_bar.dart';
-import 'package:free_2_play/pages/widgets/custom_cached_image.dart';
-import 'package:free_2_play/pages/widgets/custom_loading_widget.dart';
-import 'package:free_2_play/utils/app_colors.dart';
+import 'package:free_2_play/pages/main_navigation_page.dart';
+import 'package:free_2_play/pages/widgets/global_app_bar_widget.dart';
+import 'package:free_2_play/pages/widgets/global_cached_image_widget.dart';
+import 'package:free_2_play/pages/widgets/global_loading_widget.dart';
+import 'package:free_2_play/constant/color_constant.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../models/game_detail_model.dart';
 import '../../../services/game_service.dart';
-import '../../widgets/custom_text_widget.dart';
+import '../../widgets/global_text_widget.dart';
 import 'game_detail_carousel.dart';
 
 class GameDetailPage extends StatefulWidget {
@@ -42,13 +42,13 @@ class _GameDetailPageState extends State<GameDetailPage> {
           if (snapshot.hasData) {
             final game = snapshot.data!;
             return Scaffold(
-              backgroundColor: AppColors.backgroundColor,
-              appBar: const CustomAppBar(),
+              backgroundColor: ColorConstant.backgroundColor,
+              appBar: const GlobalAppBar(),
               body: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomCachedImage(
+                    GlobalCachedImage(
                       gameUrl: game.thumbnail,
                       widthQuery: true,
                     ),
@@ -57,12 +57,12 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomTextWidget(
+                          GlobalTextWidget(
                             text: game.title,
                             fontSize: 26,
                             fontFamily: 'Motiva Sans',
                             fontWeight: FontWeight.bold,
-                            color: AppColors.primaryTextColor,
+                            color: ColorConstant.primaryTextColor,
                           ),
                           const SizedBox(height: 4),
                           Row(
@@ -72,20 +72,20 @@ class _GameDetailPageState extends State<GameDetailPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    CustomTextWidget(
+                                    GlobalTextWidget(
                                       text: 'Developer',
                                       fontSize: 13,
-                                      color: AppColors.accentTextColor,
+                                      color: ColorConstant.accentTextColor,
                                     ),
-                                    CustomTextWidget(
+                                    GlobalTextWidget(
                                       text: 'Publisher',
                                       fontSize: 13,
-                                      color: AppColors.accentTextColor,
+                                      color: ColorConstant.accentTextColor,
                                     ),
-                                    CustomTextWidget(
+                                    GlobalTextWidget(
                                       text: 'Released',
                                       fontSize: 13,
-                                      color: AppColors.accentTextColor,
+                                      color: ColorConstant.accentTextColor,
                                     ),
                                   ],
                                 ),
@@ -94,20 +94,20 @@ class _GameDetailPageState extends State<GameDetailPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    CustomTextWidget(
+                                    GlobalTextWidget(
                                       text: game.developer,
                                       fontSize: 13,
-                                      color: AppColors.primaryTextColor2,
+                                      color: ColorConstant.primaryTextColor2,
                                     ),
-                                    CustomTextWidget(
+                                    GlobalTextWidget(
                                       text: game.publisher,
                                       fontSize: 13,
-                                      color: AppColors.primaryTextColor2,
+                                      color: ColorConstant.primaryTextColor2,
                                     ),
-                                    CustomTextWidget(
+                                    GlobalTextWidget(
                                       text: game.releaseDate,
                                       fontSize: 13,
-                                      color: AppColors.primaryTextColor3,
+                                      color: ColorConstant.primaryTextColor3,
                                     ),
                                   ],
                                 ),
@@ -118,7 +118,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                           Container(
                             width: double.infinity,
                             height: 0.2,
-                            color: AppColors.backgroundColor2,
+                            color: ColorConstant.backgroundColor2,
                           ),
                           const SizedBox(height: 20),
                           GameDetailCarousel(
@@ -128,7 +128,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                           Container(
                             width: double.infinity,
                             height: 0.2,
-                            color: AppColors.backgroundColor2,
+                            color: ColorConstant.backgroundColor2,
                           ),
                           const SizedBox(height: 20),
                           Row(
@@ -137,10 +137,10 @@ class _GameDetailPageState extends State<GameDetailPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const CustomTextWidget(
+                                    const GlobalTextWidget(
                                       text: 'PLATFORM',
                                       fontSize: 16,
-                                      color: AppColors.accentTextColor,
+                                      color: ColorConstant.accentTextColor,
                                     ),
                                     const SizedBox(height: 4),
                                     Container(
@@ -150,11 +150,11 @@ class _GameDetailPageState extends State<GameDetailPage> {
                                       ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
-                                        color: AppColors.backgroundColor3,
+                                        color: ColorConstant.backgroundColor3,
                                       ),
-                                      child: CustomTextWidget(
+                                      child: GlobalTextWidget(
                                         text: game.platform,
-                                        color: AppColors.primaryTextColor2,
+                                        color: ColorConstant.primaryTextColor2,
                                       ),
                                     ),
                                   ],
@@ -164,10 +164,10 @@ class _GameDetailPageState extends State<GameDetailPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const CustomTextWidget(
+                                    const GlobalTextWidget(
                                       text: 'GENRE',
                                       fontSize: 16,
-                                      color: AppColors.accentTextColor,
+                                      color: ColorConstant.accentTextColor,
                                     ),
                                     const SizedBox(height: 4),
                                     Container(
@@ -177,11 +177,11 @@ class _GameDetailPageState extends State<GameDetailPage> {
                                       ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
-                                        color: AppColors.backgroundColor3,
+                                        color: ColorConstant.backgroundColor3,
                                       ),
-                                      child: CustomTextWidget(
+                                      child: GlobalTextWidget(
                                         text: game.genre,
-                                        color: AppColors.primaryTextColor2,
+                                        color: ColorConstant.primaryTextColor2,
                                       ),
                                     ),
                                   ],
@@ -193,19 +193,19 @@ class _GameDetailPageState extends State<GameDetailPage> {
                           Container(
                             width: double.infinity,
                             height: 0.2,
-                            color: AppColors.backgroundColor2,
+                            color: ColorConstant.backgroundColor2,
                           ),
                           const SizedBox(height: 16),
-                          CustomTextWidget(
+                          GlobalTextWidget(
                             text: game.description,
                             fontSize: 12,
-                            color: AppColors.primaryTextColor3,
+                            color: ColorConstant.primaryTextColor3,
                           ),
                           const SizedBox(height: 24),
-                          const CustomTextWidget(
+                          const GlobalTextWidget(
                             text: 'SIMILAR GAMES',
                             fontSize: 16,
-                            color: AppColors.accentTextColor,
+                            color: ColorConstant.accentTextColor,
                           ),
                           const SizedBox(height: 16),
                           GameSimilarWidget(
@@ -233,16 +233,16 @@ class _GameDetailPageState extends State<GameDetailPage> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.backgroundColor3,
+                        backgroundColor: ColorConstant.backgroundColor3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
                         fixedSize: const Size(270, 64),
                       ),
-                      child: const CustomTextWidget(
+                      child: const GlobalTextWidget(
                         text: 'VISIT THE WEBSITE',
                         fontSize: 16,
-                        color: AppColors.primaryTextColor2,
+                        color: ColorConstant.primaryTextColor2,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -252,12 +252,12 @@ class _GameDetailPageState extends State<GameDetailPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ViewPage(),
+                            builder: (context) => const MainNavigationPage(),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.backgroundColor3,
+                        backgroundColor: ColorConstant.backgroundColor3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -265,7 +265,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       ),
                       child: const Icon(
                         Icons.arrow_back_ios,
-                        color: AppColors.primaryTextColor2,
+                        color: ColorConstant.primaryTextColor2,
                       ),
                     ),
                   ],
@@ -281,10 +281,10 @@ class _GameDetailPageState extends State<GameDetailPage> {
           }
         }
         return const Scaffold(
-          backgroundColor: AppColors.backgroundColor,
-          appBar: CustomAppBar(),
-          body: CustomLoadingWidget(
-            color: AppColors.backgroundColor,
+          backgroundColor: ColorConstant.backgroundColor,
+          appBar: GlobalAppBar(),
+          body: GlobalLoadingWidget(
+            color: ColorConstant.backgroundColor,
           ),
         );
       },

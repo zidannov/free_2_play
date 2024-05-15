@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:free_2_play/utils/app_colors.dart';
+import 'package:free_2_play/constant/color_constant.dart';
 
-class CustomLoadingWidget extends StatelessWidget {
+class GlobalLoadingWidget extends StatelessWidget {
   final Color color;
   final double strokeWidth;
 
-  const CustomLoadingWidget({
+  const GlobalLoadingWidget({
     super.key,
     this.color = Colors.transparent,
     this.strokeWidth = 2,
@@ -20,7 +20,7 @@ class CustomLoadingWidget extends StatelessWidget {
       height: 128,
       child: CircularProgressIndicator(
         strokeWidth: strokeWidth,
-        color: AppColors.primaryTextColor,
+        color: ColorConstant.primaryTextColor,
       ),
     );
   }

@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'home/home_page.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-import '../utils/app_colors.dart';
-import 'chatbot/chatbot_page.dart';
+import '../constant/color_constant.dart';
+import 'gemini/gemini_page.dart';
 import 'search/search_page.dart';
-import 'widgets/custom_app_bar.dart';
+import 'widgets/global_app_bar_widget.dart';
 
-class ViewPage extends StatefulWidget {
-  const ViewPage({super.key});
+class MainNavigationPage extends StatefulWidget {
+  const MainNavigationPage({super.key});
 
   @override
-  State<ViewPage> createState() => _ViewPageState();
+  State<MainNavigationPage> createState() => _MainNavigationPageState();
 }
 
-class _ViewPageState extends State<ViewPage> {
+class _MainNavigationPageState extends State<MainNavigationPage> {
   late PersistentTabController _controller;
-  bool changeShadow = true;
+  bool changeShadow = false;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _ViewPageState extends State<ViewPage> {
     return Scaffold(
       extendBody: false,
       backgroundColor: Colors.black,
-      appBar: CustomAppBar(
+      appBar: GlobalAppBar(
         changeShadow: changeShadow,
       ),
       body: PersistentTabView(
@@ -71,7 +71,7 @@ class _ViewPageState extends State<ViewPage> {
             ),
           ),
           PersistentTabConfig(
-            screen: const ChatbotPage(),
+            screen: const GeminiPage(),
             item: ItemConfig(
               icon: const Icon(Icons.chat),
               inactiveIcon: const Icon(
@@ -83,7 +83,7 @@ class _ViewPageState extends State<ViewPage> {
         ],
         navBarBuilder: (navBarConfig) => Style10BottomNavBar(
           navBarDecoration: NavBarDecoration(
-            color: AppColors.primaryColor,
+            color: ColorConstant.primaryColor,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.7),

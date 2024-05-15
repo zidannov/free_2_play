@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:free_2_play/pages/widgets/custom_cached_image.dart';
-import 'package:free_2_play/pages/widgets/custom_loading_widget.dart';
+import 'package:free_2_play/pages/widgets/global_cached_image_widget.dart';
+import 'package:free_2_play/pages/widgets/global_loading_widget.dart';
 import 'package:get/get.dart';
-import 'package:free_2_play/pages/widgets/custom_text_widget.dart';
+import 'package:free_2_play/pages/widgets/global_text_widget.dart';
 import '../../../controllers/search_list_controller.dart';
 import '../search_result_page.dart';
 
@@ -25,7 +25,7 @@ class SearchListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       if (controller.isLoading.value) {
-        return const CustomLoadingWidget();
+        return const GlobalLoadingWidget();
       } else {
         return GridView.builder(
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 48),
@@ -73,7 +73,7 @@ class SearchListWidget extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               height: double.infinity,
-              child: CustomCachedImage(
+              child: GlobalCachedImage(
                 gameUrl: thumbnailUrl,
                 fit: BoxFit.fitHeight,
               ),
@@ -94,7 +94,7 @@ class SearchListWidget extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 16),
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: CustomTextWidget(
+                child: GlobalTextWidget(
                   text: category.toUpperCase(),
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

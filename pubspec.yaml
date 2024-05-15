@@ -33,7 +33,6 @@ flutter:
   assets:
     - .env
     - assets/logos/
-    - assets/images/
   fonts:
     - family: "Motiva Sans"
       fonts:
@@ -60,7 +59,7 @@ flutter:
 #   windows:
 #     generate: true
 #     image_path: "assets/logos/logo_icon.png"
-#     icon_size: 86 # min:48, max:256, default: 48
+#     icon_size: 256 # min:48, max:256, default: 48
 
 #   macos:
 #     generate: true

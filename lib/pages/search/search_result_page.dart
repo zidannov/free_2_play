@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:free_2_play/pages/widgets/custom_loading_widget.dart';
+import 'package:free_2_play/pages/widgets/global_loading_widget.dart';
 import 'package:get/get.dart';
 import '../../../controllers/search_result_controller.dart';
 import '../../main.dart';
-import '../../utils/app_colors.dart';
+import '../../constant/color_constant.dart';
 import '../home/widgets/game_detail_page.dart';
-import '../widgets/custom_cached_image.dart';
-import '../widgets/custom_text_widget.dart';
+import '../widgets/global_cached_image_widget.dart';
+import '../widgets/global_text_widget.dart';
 
 class SearchResultPage extends StatelessWidget {
   final String category;
@@ -25,10 +25,10 @@ class SearchResultPage extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor4,
+      backgroundColor: ColorConstant.backgroundColor4,
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const CustomLoadingWidget();
+          return const GlobalLoadingWidget();
         } else if (controller.games.isEmpty) {
           return const Center(child: Text('No games found'));
         } else {
@@ -51,7 +51,7 @@ class SearchResultPage extends StatelessWidget {
                   height: 62,
                   width: double.infinity,
                   alignment: Alignment.centerLeft,
-                  color: AppColors.backgroundColor5,
+                  color: ColorConstant.backgroundColor5,
                   margin: const EdgeInsets.only(
                     top: 8,
                     right: 8,
@@ -66,7 +66,7 @@ class SearchResultPage extends StatelessWidget {
                         color: Colors.blue,
                         width: 128,
                         height: 42,
-                        child: CustomCachedImage(
+                        child: GlobalCachedImage(
                           gameUrl: game.thumbnail,
                           fit: BoxFit.fitWidth,
                         ),
@@ -75,24 +75,24 @@ class SearchResultPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomTextWidget(
+                          GlobalTextWidget(
                             text: game.title,
-                            color: AppColors.primaryTextColor,
+                            color: ColorConstant.primaryTextColor,
                           ),
                           game.platform == "PC (Windows)"
                               ? const Icon(
                                   Icons.window_sharp,
-                                  color: AppColors.accentTextColor,
+                                  color: ColorConstant.accentTextColor,
                                   size: 16,
                                 )
                               : const Icon(
                                   Icons.browser_updated_sharp,
-                                  color: AppColors.accentTextColor,
+                                  color: ColorConstant.accentTextColor,
                                   size: 16,
                                 ),
-                          CustomTextWidget(
+                          GlobalTextWidget(
                             text: game.genre,
-                            color: AppColors.accentTextColor,
+                            color: ColorConstant.accentTextColor,
                             fontSize: 12,
                           ),
                         ],
@@ -107,10 +107,10 @@ class SearchResultPage extends StatelessWidget {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pop(context),
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: ColorConstant.primaryColor,
         child: const Icon(
           Icons.arrow_back_ios_new,
-          color: AppColors.primaryTextColor2,
+          color: ColorConstant.primaryTextColor2,
         ),
       ),
     );
