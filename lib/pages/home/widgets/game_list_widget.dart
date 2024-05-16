@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_2_play/pages/widgets/global_cached_image_widget.dart';
 import 'package:free_2_play/pages/widgets/global_loading_widget.dart';
-import 'package:free_2_play/pages/home/widgets/game_detail_page.dart';
+import 'package:free_2_play/pages/home/game_detail_page.dart';
 import 'package:free_2_play/constant/color_constant.dart';
 import 'package:free_2_play/pages/widgets/global_text_widget.dart';
 import '../../../main.dart';

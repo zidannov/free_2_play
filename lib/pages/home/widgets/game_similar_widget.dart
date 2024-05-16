@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:free_2_play/pages/widgets/global_loading_widget.dart';
 import '../../../controllers/game_similar_controller.dart';
 import '../../widgets/global_cached_image_widget.dart';
-import 'game_detail_page.dart';
+import '../game_detail_page.dart';
 import 'package:get/get.dart';
 
 class GameSimilarWidget extends StatelessWidget {

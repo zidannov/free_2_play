@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../main.dart';
 import '../../../models/game_list_model.dart';
-import 'game_detail_page.dart';
+import '../game_detail_page.dart';
 import '../../widgets/global_text_widget.dart';
 import '../../../constant/color_constant.dart';
 

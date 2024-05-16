@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../controllers/search_result_controller.dart';
 import '../../main.dart';
 import '../../constant/color_constant.dart';
-import '../home/widgets/game_detail_page.dart';
+import '../home/game_detail_page.dart';
 import '../widgets/global_cached_image_widget.dart';
 import '../widgets/global_text_widget.dart';
 
